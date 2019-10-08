@@ -1,15 +1,11 @@
 #include <iostream>
 #include <string>
-#include <conio.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 using namespace std;
 
 // Variaveis Globais
 
 int op, opc;
-
 
 struct dados_startup{
     int id_startup;
@@ -51,18 +47,47 @@ FILE *arquivo_temporario;
 //funções de criação de arquivos
 
 void criar_arquivo_startup(){
-
+    // a verifica se o arquivo existe, se exite abre, se nao cria, retorna null caso ocorra erro
+  if ((arquivo_principal = fopen("startup.dat", "a")) == NULL)
+  {
+    system("cls");
+    cout << "Erro de criacao de arquivo";
+    return;
+  }
+  fclose(arquivo_principal);
 }
 
 void criar_arquivo_empresa(){
-
+    // a verifica se o arquivo existe, se exite abre, se nao cria, retorna null caso ocorra erro
+  if ((arquivo_principal = fopen("empresa.dat", "a")) == NULL)
+  {
+    system("cls");
+    cout << "Erro de criacao de arquivo";
+    return;
+  }
+  fclose(arquivo_principal);
 }
 
 void criar_arquivo_startup_aceleradas(){
-
+    // a verifica se o arquivo existe, se exite abre, se nao cria, retorna null caso ocorra erro
+  if ((arquivo_principal = fopen("startups_aceleradas.dat", "a")) == NULL)
+  {
+    system("cls");
+    cout << "Erro de criacao de arquivo";
+    return;
+  }
+  fclose(arquivo_principal);
 }
 
 void criar_arquivo_temporario(){
+    // a verifica se o arquivo existe, se exite abre, se nao cria, retorna null caso ocorra erro
+  if ((arquivo_temporario = fopen("temporario.dat", "a")) == NULL)
+  {
+    system("cls");
+    cout << "Erro de criacao de arquivo";
+    return;
+  }
+  fclose(arquivo_temporario);
 
 }
 
