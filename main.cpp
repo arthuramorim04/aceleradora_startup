@@ -6,8 +6,10 @@ using namespace std;
 // Variaveis Globais
 
 int op, opc;
+char opchar;
 
-struct dados_startup{
+struct dados_startup
+{
     int id_startup;
     string nm_startup;
     string desc_startup;
@@ -19,25 +21,27 @@ struct dados_startup{
     string email_integrante_2;
     string nome_integrante_3;
     string email_integrante_3;
-    string  dt_criacao_startup;
+    string dt_criacao_startup;
 
-}startup;
+} startup;
 
-struct dados_empresa{
+struct dados_empresa
+{
     int id_empresa;
     string nm_empresa;
-    float val_fomento; 
+    float val_fomento;
 
-}empresa;
+} empresa;
 
-struct startup_aceleradas{
+struct startup_aceleradas
+{
     int cod_startup_acelerada;
     int id_startup;
     string nm_startup;
     int empresa;
     string nm_empresa;
     float val_fomentado;
-}st_fomentadas;
+} st_fomentadas;
 
 //area de arquivos
 
@@ -46,60 +50,117 @@ FILE *arquivo_temporario;
 
 //funções de criação de arquivos
 
-void criar_arquivo_startup(){
+void criar_arquivo_startup()
+{
     // a verifica se o arquivo existe, se exite abre, se nao cria, retorna null caso ocorra erro
-  if ((arquivo_principal = fopen("startup.dat", "a")) == NULL)
-  {
-    system("cls");
-    cout << "Erro de criacao de arquivo";
-    return;
-  }
-  fclose(arquivo_principal);
+    if ((arquivo_principal = fopen("startup.dat", "a")) == NULL)
+    {
+        system("cls");
+        cout << "Erro de criacao de arquivo";
+        return;
+    }
+    fclose(arquivo_principal);
 }
 
-void criar_arquivo_empresa(){
+void criar_arquivo_empresa()
+{
     // a verifica se o arquivo existe, se exite abre, se nao cria, retorna null caso ocorra erro
-  if ((arquivo_principal = fopen("empresa.dat", "a")) == NULL)
-  {
-    system("cls");
-    cout << "Erro de criacao de arquivo";
-    return;
-  }
-  fclose(arquivo_principal);
+    if ((arquivo_principal = fopen("empresa.dat", "a")) == NULL)
+    {
+        system("cls");
+        cout << "Erro de criacao de arquivo";
+        return;
+    }
+    fclose(arquivo_principal);
 }
 
-void criar_arquivo_startup_aceleradas(){
+void criar_arquivo_startup_aceleradas()
+{
     // a verifica se o arquivo existe, se exite abre, se nao cria, retorna null caso ocorra erro
-  if ((arquivo_principal = fopen("startups_aceleradas.dat", "a")) == NULL)
-  {
-    system("cls");
-    cout << "Erro de criacao de arquivo";
-    return;
-  }
-  fclose(arquivo_principal);
+    if ((arquivo_principal = fopen("startups_aceleradas.dat", "a")) == NULL)
+    {
+        system("cls");
+        cout << "Erro de criacao de arquivo";
+        return;
+    }
+    fclose(arquivo_principal);
 }
 
-void criar_arquivo_temporario(){
+void criar_arquivo_temporario()
+{
     // a verifica se o arquivo existe, se exite abre, se nao cria, retorna null caso ocorra erro
-  if ((arquivo_temporario = fopen("temporario.dat", "a")) == NULL)
-  {
-    system("cls");
-    cout << "Erro de criacao de arquivo";
-    return;
-  }
-  fclose(arquivo_temporario);
-
+    if ((arquivo_temporario = fopen("temporario.dat", "a")) == NULL)
+    {
+        system("cls");
+        cout << "Erro de criacao de arquivo";
+        return;
+    }
+    fclose(arquivo_temporario);
 }
 
 //funções de cadastro
+void cadastrar_startup(){
+    int tamanho = 0;
+    system("cls");
+    arquivo_principal = fopen("startup.dat", "r+");
+    rewind(arquivo_principal);
+    do{
+        fread(&startup, sizeof(startup), 1, arquivo_principal);
+        tamanho++;
+    }while (!feof(arquivo_principal));
+    fseek(arquivo_principal, sizeof(startup), tamanho);
+    do{
 
+        //CadastroStartupAqui
 
+    }while (opchar != 'S');
+    fclose(arquivo_principal);
+    
+}
+
+void cadastrar_empresa(){
+    int tamanho = 0;
+    system("cls");
+    arquivo_principal = fopen("empresa.dat", "r+");
+    rewind(arquivo_principal);
+    do{
+        fread(&empresa, sizeof(empresa), 1, arquivo_principal);
+        tamanho++;
+    }while (!feof(arquivo_principal));
+    fseek(arquivo_principal, sizeof(empresa), tamanho);
+    do{
+
+        //CadastroEmpresaAqui
+
+    }while (opchar != 'S');
+    fclose(arquivo_principal);
+    
+}
+
+void cadastrar_startup_fomentadas(){
+    int tamanho = 0;
+    system("cls");
+    arquivo_principal = fopen("startup_fomentadas.dat", "r+");
+    rewind(arquivo_principal);
+    do{
+        fread(&st_fomentadas, sizeof(st_fomentadas), 1, arquivo_principal);
+        tamanho++;
+    }while (!feof(arquivo_principal));
+    fseek(arquivo_principal, sizeof(st_fomentadas), tamanho);
+    do{
+
+        //CadastroStartupFomentadasAqui
+
+    }while (opchar != 'S');
+    fclose(arquivo_principal);
+    
+}
 //funções de consulta
-
 
 //funções de manipulação de dados
 
-void menu(){
+void menu()
+{
     cout << "Startup Aceleradora";
     cout << "\n\n1. Cadastrar Empresa";
     cout << "\n2. Cadastrar Startup";
@@ -115,27 +176,36 @@ void menu(){
 
     switch (op)
     {
-    case 1:        break;
-    case 2:        break;
-    case 3:        break;
-    case 4:        break;
-    case 5:        break;
-    case 6:        break;
-    case 7:        break;
-    case 8:        break;
-    case 9:        exit;
-     }
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    case 4:
+        break;
+    case 5:
+        break;
+    case 6:
+        break;
+    case 7:
+        break;
+    case 8:
+        break;
+    case 9:
+        exit;
+    }
 }
 
-main(){
+main()
+{
 
     criar_arquivo_empresa();
     criar_arquivo_startup();
     criar_arquivo_startup_aceleradas();
 
-   do
-   {
-       menu();
-   } while (opc != 9);
-   
+    do
+    {
+        menu();
+    } while (opc != 9);
 }
