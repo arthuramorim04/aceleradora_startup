@@ -188,6 +188,7 @@ void cadastrar_empresa()
 
 void cadastrar_startup_fomentadas()
 {
+    do{
     //empresa
     int id_proc;
     int achou,
@@ -284,9 +285,19 @@ void cadastrar_startup_fomentadas()
         cout << "Data do investimento: ";
         cin >> st_fomentadas.dt_investimento;
 
+        tamanho = tamanho + fwrite(&st_fomentadas, sizeof(struct startup_aceleradas), 1, arquivo_principal);
+
+        cout << "\nCadastrar nova Aceleracao? <s> ou <n>:";
+        cin >> opchar;
+        opchar = toupper(opchar);
 
     } while (opchar != 'S');
     fclose(arquivo_principal);
+    opchar = 'S';
+    }while (opchar != 'S');
+    fclose(arquivo_principal);
+    }
+    
 }
 //funções de consulta
 
