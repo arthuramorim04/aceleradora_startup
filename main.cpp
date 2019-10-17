@@ -13,7 +13,7 @@ int id_startup_temp;
 string nm_startup_temp;
 string desc_startup_temp;
 string area_startup_temp;
-int id_equipe_startup_temp;
+int id_equipe_startup_temp; 
 string nome_integrante_1_temp;
 string email_integrante_1_temp;
 string nome_integrante_2_temp;
@@ -21,6 +21,17 @@ string email_integrante_2_temp;
 string nome_integrante_3_temp;
 string email_integrante_3_temp;
 string dt_criacao_startup_temp;
+
+//Variaveis Temporarias Startup Acelerada
+
+int id_st_acelerada_temp;
+int id_acelerada_startup_temp;
+int id_acelerada_empresa_temp;
+float val_acelerada_fomento_temp;
+string dt_acelerada_investimento;
+string nm_acelerada_startup_temp;
+string nm_acelerada_empresa_temp;
+
 
 // Variaveis Globais
 
@@ -336,6 +347,40 @@ void conuslta_startup_acelerada(){
 
 
 //funções de manipulação de dados
+void altera_dados_aceleracao(){
+
+    int id_procura, achou, cont;
+
+    arquivo_principal = fopen("startups_aceleradas.dat", "+r");
+    fseek(arquivo_principal, sizeof(startup_aceleradas), 0);
+    cout << "Digite o ID da aceleracao que deseja fazer alteracao: ";
+    cin >> id_procura;
+    while (fread(&st_fomentadas, sizeof(startup_aceleradas), 1, arquivo_principal) == 1)
+    {
+       if(id_procura == st_fomentadas.cod_startup_acelerada){
+        
+            id_acelerada_empresa_temp = st_fomentadas.id_empresa;
+            id_acelerada_startup_temp = st_fomentadas.id_startup;
+            id_st_acelerada_temp = st_fomentadas.cod_startup_acelerada;
+            nm_acelerada_empresa_temp = st_fomentadas.nm_empresa;
+            nm_acelerada_startup_temp = st_fomentadas.nm_startup;
+            val_acelerada_fomento_temp = st_fomentadas.val_fomentado;
+
+            system("clear");
+            template_startup_acelerada();
+
+            cout << "\nAtencao: O unico campo aleravel por eh o de valor de fomentacao! \n qualquer outra alteracao deve ser feita nos cadastros Empresa e Startup";
+
+            cout << "";
+
+
+            cont = 1;
+        }
+    }
+    
+
+}
+
 
 void menu()
 {
