@@ -210,7 +210,7 @@ void cadastrar_startup()
 
         cout << "Cadastrar nova startup? Sim <S>      Nao <N>";
         cin >> opchar;
-    } while (opchar != 'S');
+    } while (opchar = 'S');
 
     fclose(arquivo_principal);
 }
@@ -261,7 +261,6 @@ void consulta_id_empresa()
     cin >> procura_id_empresa;
     while (fread(&empresas, sizeof(empresas), 1, arquivo_principal) == 1)
     {
-        //errinho q tem q corrigir
         if (procura_id_empresa == empresas.id_empresa)
         {
             template_empresa();
@@ -277,7 +276,7 @@ void consulta_id_empresa()
         cout << "\nRealizar novo cadastro?  <s> ou <n>:";
         cin >> opchar;
         opchar = toupper(opchar);
-        if (opchar != 'S')
+        if (opchar = 'S')
         {
             cadastra_empresa();
             getchar();
@@ -388,6 +387,18 @@ void cadastrar_startup_fomentadas()
         opchar = 'S';
     } while (opchar != 'S');
     fclose(arquivo_principal);
+                id_startup_temp = 0;
+                nm_startup_temp = "";
+                desc_startup_temp = "";
+                area_startup_temp = "";
+                id_equipe_startup_temp = 0;
+                nome_integrante_1_temp = "";
+                email_integrante_1_temp = "";
+                nome_integrante_2_temp = "";
+                email_integrante_2_temp = "";
+                nome_integrante_3_temp = "";
+                email_integrante_3_temp = "";
+                dt_criacao_startup_temp = "";
 
     fflush(stdin);
 }
