@@ -233,6 +233,7 @@ void cadastra_empresa()
         system("cls");
         cout << "\nDigite a ID da empresa:";
         cin >> empresas.id_empresa;
+        fflush(stdin);
         cout << "\nDigite o nome da empresa:";
         getline(cin, empresas.nm_empresa);
 
@@ -242,7 +243,7 @@ void cadastra_empresa()
         cin >> opchar;
         opchar = toupper(opchar);
 
-    } while (opchar != 'S');
+    } while (opchar == 'S');
 
     fclose(arquivo_principal);
 }
@@ -255,7 +256,7 @@ void consulta_id_empresa()
     int cont = 0;
     system("cls");
 
-    arquivo_principal = fopen("empresas.dat", "r+");
+    arquivo_principal = fopen("empresa.dat", "r+");
     fseek(arquivo_principal, sizeof(struct dados_empresa), 0);
     cout << "Digite a ID da empresa:";
     cin >> procura_id_empresa;
@@ -305,16 +306,14 @@ void cadastrar_startup_fomentadas()
                 system("clear");
                 id_empresa_temp = empresas.id_empresa;
                 nm_empresa_temp = empresas.nm_empresa;
-                cont = 1;
             }
+            else
+            {
+                cout << "Empresa nao Cadastrada\n";
+                fclose(arquivo_principal);
+            }
+            
         }
-
-        if (cont == 0)
-        {
-            cout << "Empresa nao Cadastrada\n";
-            fclose(arquivo_principal);
-        }
-
         //startup
         id_proc = 0;
         cont = 0;
@@ -341,13 +340,10 @@ void cadastrar_startup_fomentadas()
                 email_integrante_3_temp = startup.email_integrante_3;
                 dt_criacao_startup_temp = startup.dt_criacao_startup;
                 cont = 1;
+            }else{
+                 cout << "Startup nao Cadastrada\n";
+                fclose(arquivo_principal);
             }
-        }
-
-        if (cont == 0)
-        {
-            cout << "Startup nao Cadastrada\n";
-            fclose(arquivo_principal);
         }
         //relacionar startup e empresa
         system("cls");
@@ -369,11 +365,11 @@ void cadastrar_startup_fomentadas()
             st_fomentadas.nm_empresa = nm_empresa_temp;
             st_fomentadas.nm_startup = nm_startup_temp;
             st_fomentadas.id_startup = id_startup_temp;
-            cout << "\nDigite o codigo dessa operacao: ";
+            cout << "\nDigite o ID dessa operacao: ";
             cin >> st_fomentadas.cod_startup_acelerada;
-            cout << "\n Valor de Investimento: ";
+            cout << "\nValor de Investimento: ";
             cin >> st_fomentadas.val_fomentado;
-            cout << "Data do investimento: ";
+            cout << "\nData do investimento: ";
             getline(cin, st_fomentadas.dt_investimento);
 
             tamanho = tamanho + fwrite(&st_fomentadas, sizeof(struct startup_aceleradas), 1, arquivo_principal);
@@ -382,24 +378,10 @@ void cadastrar_startup_fomentadas()
             cin >> opchar;
             opchar = toupper(opchar);
 
-        } while (opchar != 'S');
+        } while (opchar == 'S');
         fclose(arquivo_principal);
-        opchar = 'S';
-    } while (opchar != 'S');
-    fclose(arquivo_principal);
-                id_startup_temp = 0;
-                nm_startup_temp = "";
-                desc_startup_temp = "";
-                area_startup_temp = "";
-                id_equipe_startup_temp = 0;
-                nome_integrante_1_temp = "";
-                email_integrante_1_temp = "";
-                nome_integrante_2_temp = "";
-                email_integrante_2_temp = "";
-                nome_integrante_3_temp = "";
-                email_integrante_3_temp = "";
-                dt_criacao_startup_temp = "";
-
+    } while (opchar == 'S');
+    fclose(arquivo_principal);    
     fflush(stdin);
 }
 //funções de consulta
@@ -409,7 +391,7 @@ void conuslta_startup_acelerada()
     int id_procurar, achou, cont;
     cont = 0;
 
-    system("cls");
+    system("clear");
 
     arquivo_principal = fopen("startups_aceleradas.dat", "+r");
     fseek(arquivo_principal, sizeof(struct startup_aceleradas), 0);
@@ -480,7 +462,7 @@ void menu()
     cout << "\n6. Consultar Startup Acelerada";
     cout << "\n7. Editar Empresa";
     cout << "\n8. Editar Startup e Equipe";
-    cout << "\n9. Sair do Sistema";
+    cout << "\n9. Sair do Sistema\n\n";
 
     cin >> op;
 
