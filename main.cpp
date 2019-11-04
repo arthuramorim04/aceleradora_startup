@@ -113,8 +113,8 @@ void template_startup()
 void template_empresa()
 {
     cout << "\n** Empresa **\n";
-    cout << "ID: " << empresas.id_empresa;
-    cout << "Nome: " << empresas.nm_empresa;
+    cout << "\nID: " << empresas.id_empresa;
+    cout << "\nNome: " << empresas.nm_empresa;
 }
 
 //funções de criação de arquivos
@@ -208,9 +208,11 @@ void cadastrar_startup()
         cout << "Digite o email do integrante 3:";
         getline(cin, startup.email_integrante_3);
 
-        cout << "Cadastrar nova startup? Sim <S>      Nao <N>";
+        cout << "\nRealizar novo cadastro?  <s> ou <n>:";
         cin >> opchar;
-    } while (opchar = 'S');
+        opchar = toupper(opchar);
+
+    } while (opchar == 'S');
 
     fclose(arquivo_principal);
 }
@@ -220,7 +222,7 @@ void cadastra_empresa()
 {
     system("cls");
     int tamanho = 0;
-    arquivo_principal = fopen("empresa.dat", "r");
+    arquivo_principal = fopen("empresa.dat", "r+");
     rewind(arquivo_principal);
     do
     {
@@ -265,6 +267,7 @@ void consulta_id_empresa()
         if (procura_id_empresa == empresas.id_empresa)
         {
             template_empresa();
+            system("pause");
             cout << "\nPressione qualquer tecla para voltar ao menu inicial";
             getchar();
             cont = 1;
@@ -288,64 +291,6 @@ void consulta_id_empresa()
 //criar função pra limpar as variaveis no final
 void cadastrar_startup_fomentadas()
 {
-    do
-    {
-        //empresa
-        int id_proc;
-        int achou,
-            cont = 0;
-        system("cls");
-        arquivo_principal = fopen("empresa.dat", "r+");
-        fseek(arquivo_principal, sizeof(struct dados_empresa), 0);
-        cout << "Digite ID da Empresa: ";
-        cin >> id_proc;
-        while (fread(&empresas, sizeof(empresas), 1, arquivo_principal) == 1)
-        {
-            if (id_proc == empresas.id_empresa)
-            {
-                system("clear");
-                id_empresa_temp = empresas.id_empresa;
-                nm_empresa_temp = empresas.nm_empresa;
-            }
-            else
-            {
-                cout << "Empresa nao Cadastrada\n";
-                fclose(arquivo_principal);
-            }
-            
-        }
-        //startup
-        id_proc = 0;
-        cont = 0;
-        system("clear");
-        arquivo_principal = fopen("startup.dat", "r+");
-        fseek(arquivo_principal, sizeof(struct dados_startup), 0);
-        cout << "Digite o ID da Startup: ";
-        cin >> id_proc;
-        while (fread(&startup, sizeof(startup), 1, arquivo_principal) == 1)
-        {
-            if (id_proc == startup.id_startup)
-            {
-                system("clear");
-                id_startup_temp = startup.id_startup;
-                nm_startup_temp = startup.nm_startup;
-                desc_startup_temp = startup.desc_startup;
-                area_startup_temp = startup.area_startup;
-                id_equipe_startup_temp = startup.id_equipe_startup;
-                nome_integrante_1_temp = startup.nome_integrante_1;
-                email_integrante_1_temp = startup.email_integrante_1;
-                nome_integrante_2_temp = startup.nome_integrante_2;
-                email_integrante_2_temp = startup.email_integrante_2;
-                nome_integrante_3_temp = startup.nome_integrante_3;
-                email_integrante_3_temp = startup.email_integrante_3;
-                dt_criacao_startup_temp = startup.dt_criacao_startup;
-                cont = 1;
-            }else{
-                 cout << "Startup nao Cadastrada\n";
-                fclose(arquivo_principal);
-            }
-        }
-        //relacionar startup e empresa
         system("cls");
         int tamanho = 0;
         arquivo_principal = fopen("startups_aceleradas.dat", "r+");
@@ -358,13 +303,10 @@ void cadastrar_startup_fomentadas()
         fseek(arquivo_principal, sizeof(st_fomentadas), tamanho);
         do
         {
-            template_startup();
-            template_empresa();
-
-            st_fomentadas.id_empresa = id_empresa_temp;
-            st_fomentadas.nm_empresa = nm_empresa_temp;
-            st_fomentadas.nm_startup = nm_startup_temp;
-            st_fomentadas.id_startup = id_startup_temp;
+            cout << "\nDigite o ID da Empresa: ";        
+            cin >> st_fomentadas.id_empresa;
+            cout << "\nDigite o ID da Startup: ";
+            cin >> st_fomentadas.id_startup;
             cout << "\nDigite o ID dessa operacao: ";
             cin >> st_fomentadas.cod_startup_acelerada;
             cout << "\nValor de Investimento: ";
@@ -372,16 +314,13 @@ void cadastrar_startup_fomentadas()
             cout << "\nData do investimento: ";
             getline(cin, st_fomentadas.dt_investimento);
 
-            tamanho = tamanho + fwrite(&st_fomentadas, sizeof(struct startup_aceleradas), 1, arquivo_principal);
-
-            cout << "\nCadastrar nova Aceleracao? <s> ou <n>:";
+            tamanho = tamanho + fwrite(&empresas, sizeof(struct startup_aceleradas), 1, arquivo_principal);
+            cout << "\nRealizar novo cadastro?  <s> ou <n>:";
             cin >> opchar;
-            opchar = toupper(opchar);
+         opchar = toupper(opchar);
 
-        } while (opchar == 'S');
-        fclose(arquivo_principal);
-    } while (opchar == 'S');
-    fclose(arquivo_principal);    
+        } while (opchar == 'S' && opchar == 'N');
+        fclose(arquivo_principal); 
     fflush(stdin);
 }
 //funções de consulta
