@@ -283,12 +283,12 @@ void consulta_id_empresa()
         if (opchar = 'S')
         {
             cadastra_empresa();
-            getchar();
         }
     }
 }
 
 //criar função pra limpar as variaveis no final
+
 void cadastrar_startup_fomentadas()
 {
         system("cls");
@@ -311,13 +311,12 @@ void cadastrar_startup_fomentadas()
             cin >> st_fomentadas.cod_startup_acelerada;
             cout << "\nValor de Investimento: ";
             cin >> st_fomentadas.val_fomentado;
-            cout << "\nData do investimento: ";
-            getline(cin, st_fomentadas.dt_investimento);
 
-            tamanho = tamanho + fwrite(&empresas, sizeof(struct startup_aceleradas), 1, arquivo_principal);
+            tamanho = tamanho + fwrite(&st_fomentadas, sizeof(struct startup_aceleradas), 1, arquivo_principal);
+            
             cout << "\nRealizar novo cadastro?  <s> ou <n>:";
             cin >> opchar;
-         opchar = toupper(opchar);
+            opchar = toupper(opchar);
 
         } while (opchar == 'S' && opchar == 'N');
         fclose(arquivo_principal); 
@@ -325,14 +324,14 @@ void cadastrar_startup_fomentadas()
 }
 //funções de consulta
 
-void conuslta_startup_acelerada()
+void consulta_startup_acelerada()
 {
     int id_procurar, achou, cont;
     cont = 0;
 
-    system("clear");
+    system("cls");
 
-    arquivo_principal = fopen("startups_aceleradas.dat", "+r");
+    arquivo_principal = fopen("startups_aceleradas.dat", "r+");
     fseek(arquivo_principal, sizeof(struct startup_aceleradas), 0);
     cout << "digite o ID da aceleracao: ";
     cin >> id_procurar;
@@ -349,43 +348,6 @@ void conuslta_startup_acelerada()
     {
         cout << "ID nao cadastrado!";
         getwchar();
-    }
-    system("pause");
-}
-
-//funções de manipulação de dados
-void altera_dados_aceleracao()
-{
-
-    system("cls");
-
-    int id_procura, achou, cont;
-
-    arquivo_principal = fopen("startups_aceleradas.dat", "+r");
-    fseek(arquivo_principal, sizeof(startup_aceleradas), 0);
-    cout << "Digite o ID da aceleracao que deseja fazer alteracao: ";
-    cin >> id_procura;
-    while (fread(&st_fomentadas, sizeof(startup_aceleradas), 1, arquivo_principal) == 1)
-    {
-        if (id_procura == st_fomentadas.cod_startup_acelerada)
-        {
-
-            id_acelerada_empresa_temp = st_fomentadas.id_empresa;
-            id_acelerada_startup_temp = st_fomentadas.id_startup;
-            id_st_acelerada_temp = st_fomentadas.cod_startup_acelerada;
-            nm_acelerada_empresa_temp = st_fomentadas.nm_empresa;
-            nm_acelerada_startup_temp = st_fomentadas.nm_startup;
-            val_acelerada_fomento_temp = st_fomentadas.val_fomentado;
-
-            system("cls");
-            template_startup_acelerada();
-
-            cout << "\nAtencao: O unico campo aleravel por eh o de valor de fomentacao! \n qualquer outra alteracao deve ser feita nos cadastros Empresa e Startup";
-
-            cout << "";
-
-            cont = 1;
-        }
     }
 }
 
@@ -422,7 +384,7 @@ void menu()
     case 5:
         break;
     case 6:
-        conuslta_startup_acelerada();
+        consulta_startup_acelerada();
         break;
     case 7:
         break;
